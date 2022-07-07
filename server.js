@@ -1,4 +1,6 @@
-var http = require("http");
+const http = require("http");
+const validatoer = require("validatoer");
+
 
 http.createServer().on("request",function(request, response) {
     const headers = {
@@ -46,3 +48,12 @@ http.createServer().on("request",function(request, response) {
 
 
 
+// validatoer/
+
+validator.isEmail('foo@bar.com')
+
+validator.isFloat('15.23')
+
+validator.isNumeric('20')
+
+validator.isPort('3306')
