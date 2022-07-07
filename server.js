@@ -1,35 +1,48 @@
 var http = require("http");
+
 http.createServer().on("request",function(request, response) {
+    const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'OPTIONS, POST, GET',
+        'Access-Control-Max-Age': 2592000, // 30 days
+        /** add other headers as per requirement */
+      };
     console.log("servere started on 4444")
     var url = request.url ;
+
     
     if(url == "/home"){
-        response.write("welcome to our APIs");
-        console.log(url)
+        response.writeHead(204, headers); 
+        response.end("welcome to our APIs");
+        return ;
     }
     else if(url == "/products"){
+        response.writeHead(204, headers);
         x = require("./main.js");
-        debugger
-        response.write(x.data());
+        response.end(x.data());
+        return ; 
     }
     else if(url.includes(`/products/id=`)){  
+        response.writeHead(204, headers);
         x = require("./main.js");
         var num = url.split("/").slice(-1)[0].split("=").slice(-1)[0];
         try {
-            response.write(x.data(num));
+            response.end(x.data(num));
         }
         catch{
             response.writeHead(404);
         }
     }
     else if(url == `/`){  
-        response.writeHead(302,{"location":"./home"});
+        response.writeHead(302, headers);
+        response.writeHead(302,{"location":"/home"});
     }
     else{
-        response.writeHead(404);
+        response.writeHead(404, headers);
+
     }
-    response.end();
     
-}).listen(4444);
+}).listen(4444)
+
 
 

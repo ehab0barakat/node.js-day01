@@ -152,8 +152,14 @@
 
 
 <script>
+
+
+// fetch("http://127.0.0.1:2500/products" , {mode : "cors"})
+//   .then(response => response.json())
+//   .then(data => console.log(data));
+
 async function getQuery(name) {
-    file  = "./products.json"
+    file  = "http://127.0.0.1:2500/products"
     let x = await fetch(file);
     let y = await x.text();
     var data = JSON.parse(y).find(el => el.name == name ) ;
@@ -163,6 +169,7 @@ async function getQuery(name) {
         result.innerHTML = name.trim() == "" ? "you should enter a name here" : "there is no such a name like : <strong>" + name + "</strong>" ;  
     }
 }
+
 var timer ; 
 var input = document.getElementsByTagName("input")[0] ;
 var result = document.getElementsByClassName("data")[0] ; 
@@ -187,6 +194,7 @@ var spinner = `<div class="sk-circle">
   <div class="sk-circle11 sk-child"></div>
   <div class="sk-circle12 sk-child"></div>
 </div>`
+
 
 </script>
 
